@@ -38,6 +38,19 @@
 - MySQL ou PostgreSQL rodando
 - IDE como IntelliJ ou VS Code
 
+Configure o arquivo application.properties com suas credenciais:
+
+  spring.datasource.url=jdbc:mysql://localhost:3306/tasks_db
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
+
+Agora é só rodar a aplicação:
+
+# Rode a classe principal
+TasksFocusApplication.java
+
+
 ### Passos:
 
 ```bash
