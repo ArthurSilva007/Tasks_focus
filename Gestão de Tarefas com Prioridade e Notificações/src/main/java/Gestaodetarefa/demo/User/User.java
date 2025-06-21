@@ -1,13 +1,11 @@
 package Gestaodetarefa.demo.User;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -22,23 +20,30 @@ public class User implements UserDetails {
     private Long id;
 
     private String username;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + role.name());
     }
 
-   @Override
+    /**
+     * O "username" para o Spring Security será o email.
+     * Esta é a correção mais importante.
+     */
+    @Override
     public String getUsername() {
-        return username;
-   }
-   @Override public boolean isAccountNonExpired() {return true;}
+        return this.email; // GARANTA QUE ESTÁ RETORNANDO O EMAIL
+    }
+
+    @Override public boolean isAccountNonExpired() {return true;}
     @Override public boolean isAccountNonLocked() {return true;}
     @Override public boolean isCredentialsNonExpired() {return true;}
     @Override public boolean isEnabled() {return true;}
